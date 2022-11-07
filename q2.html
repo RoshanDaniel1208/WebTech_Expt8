@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        var app=angular.module('myApp',[])
+        app.controller('control',function($scope)
+        {
+            $scope.items=[];
+            $scope.addItem = function(){
+                $scope.items.push({"Productname":$scope.itemname,"Productprice":$scope.itemprice});
+            };
+            $scope.remove=function($index)
+            {
+                $scope.items.splice($index,1);
+            }
+        });
+        
+    </script>
+    <style>
+        #details:hover{background-color: rgb(221, 216, 216);}
+        tr:nth-child(even) {background-color: #cfd5db;}
+        tr{
+            border-bottom: 1px solid black;
+        }
+        th{
+            padding: 10px;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+        }
+        td{
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        *{
+            text-align: center;
+            color: blue;
+        }
+        table{
+            width: 300px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        #table1{
+            display: flex;
+            justify-content: center;
+            
+        }
+        .top{
+            background-color: green;
+            color: white;
+        }
+        #head1{
+            margin: 7px;
+        }
+        .t{
+            padding-left: 10px;
+            text-align: left;
+            width: 200px;
+            height: 45px;
+            border-radius: 10px;
+            border-color: grey;
+            color: black;
+            font-size: 25px;
+        }
+        button{
+            width: 170px;
+            height: 45px;
+            color:black;
+            font-size: 25px;
+            border-width: 3px;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="control">
+    <div id="head1">
+        <h2>Product Inventory System</h2>
+        <h4>Enter the Product Name:</h4>
+        <input type="text" ng-model="itemname" class="t"><br>
+        <h4>Enter the Product Price:</h4>
+        <input type="text" ng-model="itemprice" class="t"><br><br>
+        <button  ng-click="addItem()">Add Product</button>
+    </div>
+<hr>
+    <br><br>
+    <div id="table1">
+        <table>
+            <tr>
+                <th class="top">Name</th>
+                <th class="top">Price</th>
+                <th class="top">Remove</th>
+            </tr>
+            <tr ng-repeat="x in items" id="details">
+                <td>{{x.Productname}}</td>
+                <td>{{"Rs."+x.Productprice}}</td>
+                <td>
+                    <button ng-click="remove($index)"><img src="cancel.jpg" width='20px' height="20px" alt=""></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
