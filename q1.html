@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp",[]);
+        app.controller("control",function($scope){
+            $scope.calculate = function(){
+                var empname = $scope.empname;
+                var empid = $scope.empid;
+                var sdate = $scope.sdate;
+                var bsalary = parseInt($scope.bsalary);
+                var hra = parseInt($scope.hra);
+                var da = parseInt($scope.da);
+                var gsalary = bsalary + hra + da;
+                if (gsalary > 20000 && gsalary < 40000){
+                    var trate = 0.05 * gsalary;
+                }
+                else if (gsalary > 40000 && gsalary < 60000){
+                    var trate = 0.1 * gsalary;
+                }
+                else if (gsalary > 60000 && gsalary < 80000){
+                    var trate = 0.15 * gsalary;
+                }
+                else if(gsalary>=80000){
+                    var trate = 0.2 * gsalary;
+                }
+                var nsalary = gsalary - trate;
+                $scope.empname1 = empname;
+                $scope.empid1 = empid;
+                $scope.sdate1 = sdate;
+                $scope.gsalary1 = "Rs."+gsalary;
+                $scope.nsalary1 = "Rs."+nsalary;
+                $scope.taxcut1 = "Rs."+trate;
+            }
+        });
+    </script>
+    <style>
+        *{
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h2{
+            text-align: center;
+        }
+        .btn2{
+            background-color: rgb(61, 61, 255);
+            color: white;
+            border-color: rgb(61, 61, 255);
+        }
+        #top{
+            color: brown;
+        }
+        #all{
+            color: blue;
+            display: flex; 
+            justify-content: center;
+        }
+        .all2{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        #ho{
+            color: black;
+        }
+        #up{
+            font-weight:600;
+        }
+        .bx{
+            width: 510px;
+            height: 28px;
+            color: brown;
+            font-weight: 700;
+            padding-left: 10px;
+            border-width: 1.7px;
+            border-color: black;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #lw{
+            width: 290px;
+            text-align: center;
+        }
+        #ltb{
+            margin-bottom: 0px;
+        }
+        #btn{
+            text-align: center;
+            margin-top: 0px;
+        }
+        #btn1{
+            color: white;
+            background-color: rgb(61, 61, 255);
+            width: 300px;
+            height: 30px;
+            border-radius: 4px;
+            border-color: rgb(61, 61, 255);
+        }
+        .lbl{
+            background-color: rgb(61, 61, 255);
+            color: white;
+            font-weight: normal;
+            display: block;
+            float: left;
+            width:150px;
+            text-align: center;
+        }
+        .details{
+            float: left;
+            padding-left: 15px;
+            color: brown;
+            font-weight: 700;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body ng-app="myApp" ng-controller="control">
+    <div id = "top">
+        <h2>Employee Payroll Calculator</h2>
+    </div>
+    <div id="all">
+        <div id="up">
+            Employee Name: <br>
+            <input type="text" class="bx" ng-model="empname"><br>
+            Emp.ID: <br>
+            <input type="text" class="bx" ng-model="empid"><br>
+            Salary Date: <br>
+            <input type="date" class="bx" ng-model="sdate"><br>
+            Basic Salary: <br>
+            <input type="text" class="bx" ng-model="bsalary"><br>
+            House Rent Allowance(HRA): <br>
+            <input type="text" class="bx" ng-model="hra"><br>
+            Dearness Allowance(DA): <br>
+            <input type="text" class="bx" ng-model="da" id="ltb"><br>
+            <div id="btn">
+                <button ng-click="calculate()" id="btn1">Calculate Salary</button>
+        
+            </div>
+        </div>
+    </div>
+
+    <div class="all2">
+        <div id="lw">
+            <h2 id="ho">Salary Details</h1>
+            <span class="lbl">Employee Name</span><span id="empname" ng-bind="empname1" class="details"></span><br><br>
+            <span class="lbl">EmpID </span><span id="empid" ng-bind="empid1" class="details"></span><br><br>
+            <span class="lbl">Salary Date </span><span   class="details">{{ sdate1 | date:"dd/MM/y"}}</span><br><br>
+            <span class="lbl">Gross Salary </span><span id="gsalary" ng-bind="gsalary1" class="details"></span><br><br>
+            <span class="lbl">Net Salary</span><span id="nsalary" ng-bind="nsalary1" class="details"></span><br><br>
+            <span class="lbl">Tax Deducted </span><span id="taxcut" ng-bind="taxcut1" class="details"></span><br><br>
+            
+        </div>
+    </div>
+</body>
+</html>
